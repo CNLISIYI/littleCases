@@ -1,0 +1,4 @@
+底层代码放在sometips.js
+相关样式放在sometips.css
+每种提示框的使用方法见usetips.js
+img里面可以看到提示框的样式截图
