@@ -8,6 +8,7 @@ $.bannercicle({
     circle_hovername: "page-hover",  //按钮悬停图片名称
     fadeintime: 1000,  //淡入淡出时间
     changetime: 4000,  //轮播自动切换时间
+    inslabel: "body",  //插入位置的类名、id。(类名格式为".leiming"，id格式为"#id")
     complete: () => {}
 })
 

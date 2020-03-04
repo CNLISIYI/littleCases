@@ -12,6 +12,7 @@ function ($) {
                 circle_hovername: "page-hover",
                 fadeintime: 1000,
                 changetime: 4000,
+                inslabel: "body",
                 complete: () => {}
             }
             var opts = $.extend({}, defaults, options || {}),
@@ -35,7 +36,7 @@ function ($) {
                                         <img src="${opts.rightcir}" alt="" class="arrow-right">
                                     </div>
                                 </div>`
-            $('body').append(cicleStr);
+            $(opts.inslabel).append(cicleStr);
             for (let i = 0; i < opts.imglength; i++) {
                 let banner_img =
                     `<li><a href="${opts.hrefpath[i]}"><img src="${opts.imgpath[i]}" alt=""></a></li>`
