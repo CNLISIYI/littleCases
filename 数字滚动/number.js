@@ -3,8 +3,10 @@ function ($) {
     jQuery.extend({
         rollnumber: function (options) {
             var defaults = {
-                numlength: 5,
-                numArr: ["87", "57305", "555879", "4792802", "23498578"],
+                numlength: 4,
+                numArr: ["60916", "641785", "280640", "5222550"],
+                txtArr: ["个", "只", "条", "块"],
+                secTitle: ["红色小心心", "黄色小心心", "粉色小心心", "绿色小心心"],
                 inslabel: "body",
                 complete: () => {}
             }
@@ -25,47 +27,84 @@ function ($) {
                     $(".number-data li").eq(i).append(number_span);
                 }
             }
+            for (let p = 0; p < opts.txtArr.length; p++) {
+                let txt_span = `<span>${opts.txtArr[p]}</span>`;
+                let sectitle = `<p class="txt">${opts.secTitle[p]}</p>`
+                $(".number-data li").eq(p).append(txt_span);
+                $(".number-data li").eq(p).append(sectitle);
+            }
             // 滚动效果
-            for (let i = 0; i < document.querySelectorAll(".count").length; i++) {
-                for (let j = 0; j < 3; j++) {
-                    let thisNumber = parseInt($(".number-data li").eq(i).find(".count").eq(j).text())
-                    let timeFlag = 0.1;
-                    if (thisNumber < 100) {
-                        timeFlag = 30;
+            var num = [];
+            for (let i = 0; i < $(".number-data").find(".count").length; i++) {
+                num[i] = $(".count").eq(i).text();
+                if (num[i].indexOf('/script>') > 0)
+                    num[i] = num[i].substring(num[i].indexOf('/script>') + 8);
+            }
+            $(function () {
+                for (let i = 0; i < $(".number-data").find(".count").length; i++) {
+                    if (parseInt(num[i]) == 0) {
+                        return;
+                    } else if (parseInt(num[i]) < 100) {
+                        $('.count').eq(i).animationCounter({
+                            start: 0,
+                            end: num[i],
+                            step: 1,
+                            delay: 10
+                        });
+                    } else {
+                        $('.count').eq(i).animationCounter({
+                            start: 0,
+                            end: num[i],
+                            step: parseInt(num[i] / 80),
+                            delay: 10
+                        });
                     }
-                    if (thisNumber >= 100 && thisNumber < 500) {
-                        timeFlag = 5;
-                    }
-                    countNuber(i, j, thisNumber, timeFlag);
                 }
-            }
-
-            function countNuber(p, q, lastNum, timer) {
-                let m = 0;
-                setInterval(() => {
-                    if (m <= lastNum) {
-                        $(".number-data li").eq(p).find(".count").eq(q).text(m++)
-                    }
-                }, timer);
-            }
+            })
         },
         numFormat(num) {
-            num = num.toString().split("."); // 分隔小数点
-            let arr = num[0].split("").reverse(); // 转换成字符数组并且倒序排列
-            let res = [];
-            for (let i = 0, len = arr.length; i < len; i++) {
-                if (i % 3 === 0 && i !== 0) {
-                    res.push(","); // 添加分隔符
-                }
-                res.push(arr[i]);
-            }
-            res.reverse(); // 再次倒序成为正确的顺序
-            if (num[1]) { // 如果有小数的话添加小数部分
-                res = res.join("").concat("." + num[1]);
-            } else {
-                res = res.join("");
-            }
-            return res;
+            return parseFloat(num).toLocaleString();
         }
     })
 }(jQuery)
+$(function () {
+    $.fn.animationCounter = function (options) {
+        return this.each(function () {
+            try {
+                var element = $(this);
+                var defaults = {
+                    start: 0,
+                    end: null,
+                    step: 1,
+                    delay: 1000,
+                    txt: ""
+                }
+                var settings = $.extend(defaults, options || {})
+                var nb_start = settings.start;
+                var nb_end = settings.end;
+                element.text(nb_start + settings.txt);
+                var counter = function () {
+                    if (nb_end != null && nb_start >= nb_end) {
+                        ints = window.clearInterval(ints);
+                        return;
+                    }
+                    if (nb_start + settings.step > nb_end) {
+                        nb_start = nb_end;
+                    } else {
+                        nb_start = nb_start + settings.step;
+                    }
+                    if (nb_end.slice(0, 2) == '00') {
+                        element.text('00' + nb_start + settings.txt);
+                    } else if (nb_end.slice(0, 1) == '0') {
+                        element.text('0' + nb_start + settings.txt);
+                    } else {
+                        element.text(nb_start + settings.txt);
+                    }
+                }
+                var ints = setInterval(counter, settings.delay);
+            } catch (e) {
+                alert(e + ' at line ' + e.lineNumber);
+            }
+        });
+    }
+});
