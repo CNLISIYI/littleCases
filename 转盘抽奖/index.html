@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title></title>
+
+	<link href="css/index.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="//at.alicdn.com/t/font_1690712_e1eaunih5fa.css">
+</head>
+
+<body>
+
+	<div class="mask">
+		<div class="turntable-outer clearfix">
+			<div class="close-pop">
+				<i class="iconfont iconziyuan"></i>
+			</div>
+			<div class="turntable-content">
+				<img src="images/pic1.png" id="img-1" style="display:none;" />
+				<img src="images/pic2.png" id="img-2" style="display:none;" />
+				<img src="images/pic3.png" id="img-3" style="display:none;" />
+				<img src="images/pic4.png" id="img-4" style="display:none;" />
+				<img src="images/pic5.png" id="img-5" style="display:none;" />
+				<img src="images/pic6.png" id="img-6" style="display:none;" />
+				<img src="images/pic7.png" id="img-7" style="display:none;" />
+				<img src="images/pic8.png" id="img-8" style="display:none;" />
+				<div class="banner">
+					<div class="turnplate">
+						<canvas class="item" id="wheelcanvas" width="288px" height="288px"></canvas>
+						<img class="pointer" src="images/turnplate-pointer.png">
+					</div>
+					<div class="turn-list">
+						<p>会员187****2310抽中&nbsp; 二等奖</p>
+						<p>会员177****7465抽中&nbsp; 三等奖</p>
+					</div>
+				</div>
+				<div class="banner-b">
+					<p>已有 <span>256</span> 人参与</p>
+					<p>您还有 <span>1</span> 次抽奖机会</p>
+				</div>
+			</div>
+			<div class="turntable-r">
+				<div class="img-box"><img src="images/title.jpg"></div>
+				<div class="text-box">
+					<p>为答谢爱采购老客户，开创云采购举行年终续费抽奖活动，</p>
+					<p>续费客户登录账号密码即可进行抽奖，100%中奖。</p>
+					<h5>活动奖品：</h5>
+					<p>一等奖：iPhone 12</p>
+					<p>二等奖：联想笔记本电脑</p>
+					<p>三等奖：电火锅</p>
+					<p>四等奖：城市版小度音响</p>
+					<p>五等奖：精美落地页五套</p>
+					<p>六等奖：开创背包</p>
+					<p>七等奖：运动水壶</p>
+					<p>八等奖：百度精美挂饰</p>
+					<h5>活动说明：</h5>
+					<p>点击对应抽奖按钮，即可抽奖。奖品图片仅供参考，以实物为准！</p>
+					<h5>活动时间：</h5>
+					<p>2021.01.25——2021.01.31</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+	<script src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/awardRotate.js"></script>
+	<script type="text/javascript">
+		// 中奖播报
+		var levData = ['二', '三', '四', '五', '六', '七', '八']
+		var telData = ['131', '138', '151', '156', '158', '199', '137', '187', '155', '178', '171', '139', '170', '184',
+			'152'
+		]
+		var flag = 0;
+		setInterval(() => {
+			++flag;
+			let newP =
+				`<p>会员${telData[getRandomIntInclusive(0,14)]}****${getRandomIntInclusive(1000,9999)}抽中&nbsp; ${levData[getRandomIntInclusive(0,6)]}等奖</p>`
+			$(".turn-list").append(newP);
+			$(".turn-list").find("p").eq(0).css("margin-top", `${-28*flag}px`);
+		}, 2500);
+
+		function getRandomIntInclusive(min, max) {
+			min = Math.ceil(min);
+			max = Math.floor(max);
+			return Math.floor(Math.random() * (max - min + 1)) + min; //含最大值，含最小值 
+		}
+
+
+
+		var turnplate = {
+			restaraunts: [], //大转盘奖品名称
+			colors: [], //大转盘奖品区块对应背景颜色
+			outsideRadius: 141, //大转盘外圆的半径
+			textRadius: 115, //大转盘奖品位置距离圆心的距离
+			insideRadius: 20, //大转盘内圆的半径
+			startAngle: 0, //开始角度
+			bRotate: false //false:停止;ture:旋转
+		};
+
+		$(document).ready(function () {
+			//动态添加大转盘的奖品与奖品区域背景颜色
+			turnplate.restaraunts = ["电火锅", "百度精美挂饰", "精美落地页", "联想笔记本", "运动水壶", "小度音响", "iPhone 12 ", "开创背包"];
+			turnplate.colors = ["#fef9ef", "#F9DEA6", "#F5C287", "#FEEAC1", "#EE8337", "#fef9ef", "#E95128",
+				"#F9E0AB"
+			];
+			var rotateTimeOut = function () {
+				$('#wheelcanvas').rotate({
+					angle: 0,
+					animateTo: 2160,
+					duration: 8000,
+					callback: function () {
+						alert('网络超时，请检查您的网络设置！');
+					}
+				});
+			};
+
+			//旋转转盘 item:奖品位置; txt：提示语;
+			var rotateFn = function (item, txt) {
+				var angles = item * (360 / turnplate.restaraunts.length) - (360 / (turnplate.restaraunts.length *
+					2));
+				if (angles < 270) {
+					angles = 270 - angles;
+				} else {
+					angles = 360 - angles + 270;
+				}
+				$('#wheelcanvas').stopRotate();
+				$('#wheelcanvas').rotate({
+					angle: 0,
+					animateTo: angles + 1800,
+					duration: 8000,
+					callback: function () {
+						//中奖提示
+						console.log(txt, item)
+						turnplate.bRotate = !turnplate.bRotate;
+					}
+				});
+			};
+
+			$('.pointer').click(function () {
+				if (turnplate.bRotate) return;
+				turnplate.bRotate = !turnplate.bRotate;
+				//获取随机数(奖品个数范围内)
+				var item = getRandomIntInclusive(1, 8);
+				if (item == 1 || item == 4 || item == 7) {
+					item += 1;
+				} else if (item == 3 || item == 6) {
+					item -= 1;
+				}
+				rotateFn(item, turnplate.restaraunts[item - 1]);
+			});
+		});
+
+		//页面所有元素加载完毕后执行drawRouletteWheel()方法对转盘进行渲染
+		window.onload = function () {
+			drawRouletteWheel();
+		};
+
+		function drawRouletteWheel() {
+			var canvas = document.getElementById("wheelcanvas");
+			if (canvas.getContext) {
+				//根据奖品个数计算圆周角度
+				var arc = Math.PI / (turnplate.restaraunts.length / 2);
+				var ctx = canvas.getContext("2d");
+				//在给定矩形内清空一个矩形
+				ctx.clearRect(0, 0, 288, 288);
+				//strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式  
+				ctx.strokeStyle = "#FFBE04";
+				//font 属性设置或返回画布上文本内容的当前字体属性
+				ctx.font = '12px Microsoft YaHei';
+				for (var i = 0; i < turnplate.restaraunts.length; i++) {
+					var angle = turnplate.startAngle + i * arc;
+					ctx.fillStyle = turnplate.colors[i];
+					ctx.beginPath();
+					//arc(x,y,r,起始角,结束角,绘制方向) 方法创建弧/曲线（用于创建圆或部分圆）    
+					ctx.arc(144, 144, turnplate.outsideRadius, angle, angle + arc, false);
+					ctx.arc(144, 144, turnplate.insideRadius, angle + arc, angle, true);
+					ctx.stroke();
+					ctx.fill();
+					//锁画布(为了保存之前的画布状态)
+					ctx.save();
+
+					//----绘制奖品开始----
+					ctx.fillStyle = "#D54327";
+					var text = turnplate.restaraunts[i];
+					var line_height = 17;
+					//translate方法重新映射画布上的 (0,0) 位置
+					ctx.translate(144 + Math.cos(angle + arc / 2) * turnplate.textRadius, 144 + Math.sin(angle + arc / 2) *
+						turnplate.textRadius);
+
+					//rotate方法旋转当前的绘图
+					ctx.rotate(angle + arc / 2 + Math.PI / 2);
+
+					/** 下面代码根据奖品类型、奖品名称长度渲染不同效果，如字体、颜色、图片效果。(具体根据实际情况改变) **/
+					if (text.indexOf("火锅") > 0) {
+						// var texts = text.split("M");
+						// for (var j = 0; j < texts.length; j++) {
+						// 	ctx.font = j == 0 ? 'bold 20px Microsoft YaHei' : '16px Microsoft YaHei';
+						// 	if (j == 0) {
+						// 		ctx.fillText(texts[j] + "M", -ctx.measureText(texts[j] + "M").width / 2, j * line_height);
+						// 	} else {
+						// 		ctx.fillText(texts[j], -ctx.measureText(texts[j]).width / 2, j * line_height);
+						// 	}
+						// }
+						ctx.fillStyle = "#B36A3F";
+					}
+					if (text.indexOf("水壶") > 0) {
+						ctx.fillStyle = "#FFFFFF";
+					}
+					if (text.indexOf("挂饰") > 0) {
+						ctx.fillStyle = "#B36A3F";
+					}
+					if (text.indexOf("12") > 0) {
+						ctx.fillStyle = "#FFF585";
+					}
+					//在画布上绘制填色的文本。文本的默认颜色是黑色
+					//measureText()方法返回包含一个对象，该对象包含以像素计的指定字体宽度
+					ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+
+					//添加对应图标
+					if (text.indexOf("火锅") > 0) {
+						var img = document.getElementById("img-1");
+						img.onload = function () {
+							ctx.drawImage(img, -28, 10);
+						};
+						ctx.drawImage(img, -28, 10);
+					} else if (text.indexOf("音响") >= 0) {
+						var img = document.getElementById("img-2");
+						img.onload = function () {
+							ctx.drawImage(img, -26, 10);
+						};
+						ctx.drawImage(img, -26, 10);
+					} else if (text.indexOf("落地页") >= 0) {
+						var img = document.getElementById("img-3");
+						img.onload = function () {
+							ctx.drawImage(img, -16, 10);
+						};
+						ctx.drawImage(img, -16, 10);
+					} else if (text.indexOf("背包") >= 0) {
+						var img = document.getElementById("img-4");
+						img.onload = function () {
+							ctx.drawImage(img, -14, 10);
+						};
+						ctx.drawImage(img, -14, 10);
+					} else if (text.indexOf("水壶") >= 0) {
+						var img = document.getElementById("img-5");
+						img.onload = function () {
+							ctx.drawImage(img, -12, 10);
+						};
+						ctx.drawImage(img, -12, 10);
+					} else if (text.indexOf("iPhone") >= 0) {
+						var img = document.getElementById("img-6");
+						img.onload = function () {
+							ctx.drawImage(img, -16, 10);
+						};
+						ctx.drawImage(img, -16, 10);
+					} else if (text.indexOf("挂饰") >= 0) {
+						var img = document.getElementById("img-7");
+						img.onload = function () {
+							ctx.drawImage(img, -18, 10);
+						};
+						ctx.drawImage(img, -18, 10);
+					} else if (text.indexOf("笔记本") >= 0) {
+						var img = document.getElementById("img-8");
+						img.onload = function () {
+							ctx.drawImage(img, -24, 10);
+						};
+						ctx.drawImage(img, -24, 10);
+					}
+
+					//把当前画布返回（调整）到上一个save()状态之前 
+					ctx.restore();
+					//----绘制奖品结束----
+				}
+			}
+		}
+	</script>
+
+</body>
+
+</html>

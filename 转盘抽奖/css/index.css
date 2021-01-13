@@ -1,0 +1,164 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Segoe UI, Arial, Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+table,
+td,
+img,
+div {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+ul,
+ol {
+  list-style-type: none;
+}
+select,
+input,
+img,
+select {
+  vertical-align: middle;
+}
+.clearfix:after {
+  content: '\20';
+  display: block;
+  height: 0;
+  clear: both;
+}
+.clearfix {
+  zoom: 1;
+}
+.mask {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.turntable-outer {
+  width: 994px;
+  height: 540px;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: url("../images/bg.png") no-repeat;
+  background-size: 100% 100%;
+}
+.close-pop {
+  position: absolute;
+  right: 5px;
+  top: -25px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  background: #FFFEF4;
+  border-radius: 50%;
+}
+.close-pop i {
+  font-size: 20px;
+  color: #FC5642;
+  font-weight: 800;
+}
+.turntable-content {
+  float: left;
+}
+.banner {
+  position: relative;
+}
+.turnplate {
+  position: relative;
+  width: 470px;
+  height: 510px;
+  margin-top: -40px;
+  margin-left: 20px;
+  background: url("../images/turnplate-bg.jpg") no-repeat;
+  background-size: 100% 100%;
+}
+.turnplate img.pointer {
+  position: absolute;
+  width: 84px;
+  height: 106px;
+  left: 50%;
+  top: 168px;
+  transform: translateX(-50%);
+}
+.turnplate canvas.item {
+  margin-left: 91px;
+  margin-top: 87px;
+}
+.turn-list {
+  position: absolute;
+  left: 210px;
+  bottom: 26px;
+  width: 98px;
+  height: 28px;
+  overflow: hidden;
+}
+.turn-list p {
+  color: #C43E1E;
+  font-size: 12px;
+  width: 100%;
+  line-height: 14px;
+  transition: 2.5s;
+}
+.banner-b {
+  margin-top: 10px;
+  padding-left: 26px;
+}
+.banner-b p {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 4px;
+  color: #fff;
+}
+.banner-b span {
+  color: #F7CE5C;
+}
+.turntable-r {
+  float: left;
+  padding-top: 30px;
+}
+.turntable-r .img-box {
+  width: 303px;
+  height: 80px;
+  margin-bottom: 6px;
+}
+.turntable-r .img-box img {
+  width: 100%;
+  height: 100%;
+}
+.text-box {
+  padding-left: 6px;
+}
+.text-box p {
+  line-height: 1;
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+.text-box h5 {
+  color: #222;
+  margin: 20px 0 10px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
