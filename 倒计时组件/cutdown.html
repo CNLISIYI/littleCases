@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Cutdown</title>
+</head>
+
+<body>
+    <div class="over-time"></div>
+
+    <script src="lib/jquery-1.12.4.min.js" charset="utf-8"></script>
+    <script src="cutdown.js" charset="utf-8"></script>
+    <script>
+        $.dateCutDown({
+            begintime: new Date().getTime(), //开始ms时间戳
+            endtime: new Date().getTime() + 5 //结束ms时间戳
+        })
+    </script>
+</body>
+
+</html>

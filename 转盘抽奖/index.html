@@ -83,7 +83,10 @@
 			let newP =
 				`<p>会员${telData[getRandomIntInclusive(0,14)]}****${getRandomIntInclusive(1000,9999)}抽中&nbsp; ${levData[getRandomIntInclusive(0,6)]}等奖</p>`
 			$(".turn-list").append(newP);
-			$(".turn-list").find("p").eq(0).css("margin-top", `${-28*flag}px`);
+			if(flag > 1) {
+				$(".turn-list p").eq(0).remove();
+			}
+			$(".turn-list p").eq(0).css("margin-top", "-28px");
 		}, 2500);
 
 		function getRandomIntInclusive(min, max) {
