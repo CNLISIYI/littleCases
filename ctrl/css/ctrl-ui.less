@@ -245,13 +245,13 @@ td {
     text-align: left
 }
 
-.overflow1 {
+.ell-1 {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.overflow2 {
+.ell-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     overflow: hidden;
@@ -274,8 +274,16 @@ td {
 .mb20 {
     margin-bottom: 20px;
 }
+
 .fb8500 {
     color: #FB8500;
+}
+
+.widthbox {
+    max-width: 1200px;
+    min-width: 1200px;
+    margin: 0 auto;
+    font-size: 0;
 }
 
 .ycg-topline {
@@ -285,7 +293,7 @@ td {
 }
 
 .topline-box {
-    max-width: 1198px;
+    max-width: 1200px;
     margin: 0 auto;
     height: 40px;
 
@@ -295,6 +303,7 @@ td {
         color: #222222;
         font-size: 14px;
     }
+
     .topline-r {
         float: right;
 
@@ -302,14 +311,16 @@ td {
             margin-left: 32px;
         }
     }
+
     .ycg-kf {
         margin: 0 22px 0 36px;
     }
-    
+
     .ycg-phone {
         cursor: pointer;
     }
 }
+
 .dian {
     position: absolute;
     right: -8px;
@@ -320,6 +331,7 @@ td {
     background: #E43C4A;
     border-radius: 50%;
 }
+
 .bdacg-pop {
     position: absolute;
     right: -25%;
@@ -356,29 +368,41 @@ td {
 }
 
 @font-face {
-    font-family: 'iconfont';  /* project id 2393019 */
+    font-family: 'iconfont';
+    /* project id 2393019 */
     src: url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.eot');
     src: url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.eot?#iefix') format('embedded-opentype'),
-    url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff2') format('woff2'),
-    url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff') format('woff'),
-    url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.ttf') format('truetype'),
-    url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.svg#iconfont') format('svg');
-  }
+        url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff2') format('woff2'),
+        url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff') format('woff'),
+        url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.ttf') format('truetype'),
+        url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.svg#iconfont') format('svg');
+}
+
 .date-cutdown {
     font-size: 0;
+    font-family: Source Han Sans CN;
 
-    p {
-        vertical-align: middle;
+    h4 {
         display: inline-block;
+        vertical-align: middle;
         font-size: 16px;
         margin-right: 10px;
+        line-height: 1;
     }
 
-    span {
+    p {
+        font-size: 0;
         display: inline-block;
-        font-size: 20px;
         vertical-align: middle;
         color: #EC3134;
+        line-height: 1;
+        text-align: center;
+        i {
+            font-size: 20px;
+        }
+        span {
+            font-size: 20px;
+        }
     }
 }
 

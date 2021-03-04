@@ -7,13 +7,17 @@ function ($) {
         //     endtime: 1652430786103      //结束ms时间戳
         //     title: '距报价结束还剩',      //倒计时标题
         //     classname: '.over-time'     //插入位置类名
+        //     interval: ':'               //时间间隔符（默认为天、时、分、秒）
+        //     hasdays: true               //是否换算天数
         // })
         dateCutDown: function (options) {
             var defaults = {
                 begintime: new Date().getTime(),
                 endtime: new Date().getTime() + 3600,
                 title: '距结束还剩',
-                classname: '.over-time'
+                classname: '.over-time',
+                interval: ['天', '时', '分', '秒'],
+                hasdays: true
             }
             var opts = $.extend({}, defaults, options || {}),
                 msgStr = '';
@@ -26,12 +30,20 @@ function ($) {
                 return;
             }
             dd = Math.floor(msTimes / (60 * 60 * 24));
-            hh = Math.floor(msTimes / (60 * 60)) - dd * 24;
-            mm = Math.floor(msTimes / 60) - dd * 24 * 60 - hh * 60;
-            ss = Math.floor(msTimes) - dd * 24 * 60 * 60 - hh * 60 * 60 - mm * 60;
-            msgStr = `<div class="date-cutdown"><p>${opts.title}</p><span>${dd}天${hh}时${mm}分${ss}秒</span></div>`;
+            hh = opts.hasdays ? Math.floor(msTimes / (60 * 60)) - dd * 24 : Math.floor(msTimes / (60 * 60));
+            mm = opts.hasdays ? Math.floor(msTimes / 60) - dd * 24 * 60 - hh * 60 : Math.floor(msTimes / 60) - hh * 60;
+            ss = opts.hasdays ? Math.floor(msTimes) - dd * 24 * 60 * 60 - hh * 60 * 60 - mm * 60 : Math.floor(msTimes) - hh * 60 * 60 - mm * 60;
+            msgStr = `<div class="date-cutdown">
+                        <h4>${opts.title}</h4>
+                        <p><span class="dd">${dd}</span><i class="dd">${opts.interval[0]}</i>
+                        <span>${hh}</span><i>${opts.interval[1]}</i>
+                        <span>${mm}</span><i>${opts.interval[2]}</i>
+                        <span>${ss}</span><i>${opts.interval[3]}</i></p>
+                    </div>`;
             $(opts.classname).append(msgStr);
-
+            if (!opts.hasdays) {
+                $(".date-cutdown").find(".dd").hide()
+            }
             timer = setInterval(() => {
                 $(opts.classname).text('');
                 msTimes--;
@@ -41,12 +53,21 @@ function ($) {
                     return;
                 }
                 dd = Math.floor(msTimes / (60 * 60 * 24));
-                hh = Math.floor(msTimes / (60 * 60)) - dd * 24;
-                mm = Math.floor(msTimes / 60) - dd * 24 * 60 - hh * 60;
-                ss = Math.floor(msTimes) - dd * 24 * 60 * 60 - hh * 60 * 60 - mm * 60;
+                hh = opts.hasdays ? Math.floor(msTimes / (60 * 60)) - dd * 24 : Math.floor(msTimes / (60 * 60));
+                mm = opts.hasdays ? Math.floor(msTimes / 60) - dd * 24 * 60 - hh * 60 : Math.floor(msTimes / 60) - hh * 60;
+                ss = opts.hasdays ? Math.floor(msTimes) - dd * 24 * 60 * 60 - hh * 60 * 60 - mm * 60 : Math.floor(msTimes) - hh * 60 * 60 - mm * 60;
 
-                msgStr = `<div class="date-cutdown"><p>${opts.title}</p><span>${dd}天${hh}时${mm}分${ss}秒</span></div>`;
+                msgStr = `<div class="date-cutdown">
+                        <h4>${opts.title}</h4>
+                        <p><span>${dd}</span><i>${opts.interval[0]}</i>
+                        <span>${hh}</span><i>${opts.interval[1]}</i>
+                        <span>${mm}</span><i>${opts.interval[2]}</i>
+                        <span>${ss}</span><i>${opts.interval[3]}</i></p>
+                    </div>`;
                 $(opts.classname).append(msgStr);
+                if (!opts.hasdays) {
+                    $(".date-cutdown").find(".dd").hide()
+                }
             }, 1000);
         },
 
@@ -173,8 +194,7 @@ function ($) {
                         location.reload();
                     }
                 }, opts.hidetime);
-            }
-            else {
+            } else {
                 $(".popShow-box .close").show();
                 $(document).on("click", ".popShow-box i", function () {
                     $(".popShow-mask").hide();
@@ -193,7 +213,7 @@ function ($) {
         overHidden: function () {
             $("body, html").addClass("over-hidden");
         },
-        
+
         overAuto: function () {
             $("body, html").removeClass("over-hidden");
         },

@@ -206,12 +206,12 @@ body {
 td {
   text-align: left;
 }
-.overflow1 {
+.ell-1 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
-.overflow2 {
+.ell-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   overflow: hidden;
@@ -233,13 +233,19 @@ td {
 .fb8500 {
   color: #FB8500;
 }
+.widthbox {
+  max-width: 1200px;
+  min-width: 1200px;
+  margin: 0 auto;
+  font-size: 0;
+}
 .ycg-topline {
   width: 100vw;
   height: 40px;
   background: #F4F4F4;
 }
 .topline-box {
-  max-width: 1198px;
+  max-width: 1200px;
   margin: 0 auto;
   height: 40px;
 }
@@ -311,18 +317,28 @@ td {
 }
 .date-cutdown {
   font-size: 0;
+  font-family: Source Han Sans CN;
 }
-.date-cutdown p {
-  vertical-align: middle;
+.date-cutdown h4 {
   display: inline-block;
+  vertical-align: middle;
   font-size: 16px;
   margin-right: 10px;
+  line-height: 1;
 }
-.date-cutdown span {
+.date-cutdown p {
+  font-size: 0;
   display: inline-block;
-  font-size: 20px;
   vertical-align: middle;
   color: #EC3134;
+  line-height: 1;
+  text-align: center;
+}
+.date-cutdown p i {
+  font-size: 20px;
+}
+.date-cutdown p span {
+  font-size: 20px;
 }
 .mask {
   display: none;
