@@ -271,6 +271,9 @@ td {
     margin-bottom: 40px;
 }
 
+.mt40 {
+    margin-top: 40px;
+}
 .mb20 {
     margin-bottom: 20px;
 }
@@ -358,6 +361,9 @@ td {
     }
 }
 
+/*
+* 字体图标
+*/ 
 .iconfont {
     font-family: 'iconfont';
     display: inline-block;
@@ -378,6 +384,9 @@ td {
         url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.svg#iconfont') format('svg');
 }
 
+/*
+* 组件样式
+*/ 
 .date-cutdown {
     font-size: 0;
     font-family: Source Han Sans CN;
@@ -461,7 +470,7 @@ td {
     z-index: 1000;
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.3);
-    color: #f1f1f1;
+    color: #fff;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -500,4 +509,110 @@ td {
 
 .tip-text {
     font-size: 14px;
+}
+
+.shopnums-btn {
+    font-size: 0;
+    display: inline-block;
+    height: 20px;
+    button {
+        display: inline-block;
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        background: #F6F6F6;
+        font-size: 14px;
+        color: #222222;
+        line-height: 20px;
+        border: 1px solid #DCDADA;
+    }
+    button:first-child {
+        font-size: 20px;
+        line-height: 10px;
+        padding-bottom: 2px;
+    }
+
+    input {
+        display: inline-block;
+        vertical-align: middle;
+        width: 40px;
+        height: 100%;
+        text-align: center;
+        line-height: 20px;
+        background-color: #fff;
+        border-top: 1px solid #DCDADA;
+        border-bottom: 1px solid #DCDADA;
+        font-size: 14px;
+        color: #666666;
+    }
+}
+
+/*
+* 增值服务底部样式
+*/ 
+.zzfw-footer {
+    width: 100vw;
+    height: 300px;
+    background: #262626;
+
+    .widthbox {
+        padding: 54px 88px 46px 50px;
+    }
+
+    ul {
+        font-size: 0;
+        float: left;
+        padding-top: 4px;
+    }
+
+    li {
+        width: 60px;
+        display: inline-block;
+        margin-right: 115px;
+        text-align: center;
+
+        h4 {
+            font-size: 14px;
+            color: #FFFFFF;
+            margin-bottom: 30px;
+        }
+
+        a {
+            display: block;
+            font-size: 14px;
+            color: #999999;
+            margin-bottom: 20px;
+        }
+    }
+
+    .fr {
+        text-align: center;
+        color: #999999;
+        line-height: 1;
+
+        i {
+            font-size: 59px;
+            color: #999999;
+        }
+
+        h2 {
+            margin: 10px auto 12px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 12px;
+        }
+    }
+
+    .footer-text {
+        width: 100%;
+        padding-top: 29px;
+        line-height: 1;
+        border-top: 1px solid rgba(153, 153, 153, 0.2);
+        font-size: 12px;
+        color: #999999;
+        text-align: center;
+    }
 }

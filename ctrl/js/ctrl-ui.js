@@ -7,7 +7,7 @@ function ($) {
         //     endtime: 1652430786103      //结束ms时间戳
         //     title: '距报价结束还剩',      //倒计时标题
         //     classname: '.over-time'     //插入位置类名
-        //     interval: ':'               //时间间隔符（默认为天、时、分、秒）
+        //     interval: ['天', '时', '分', '秒']        //时间间隔符（默认为天、时、分、秒）
         //     hasdays: true               //是否换算天数
         // })
         dateCutDown: function (options) {
@@ -59,7 +59,7 @@ function ($) {
 
                 msgStr = `<div class="date-cutdown">
                         <h4>${opts.title}</h4>
-                        <p><span>${dd}</span><i>${opts.interval[0]}</i>
+                        <p><span class="dd">${dd}</span><i class="dd">${opts.interval[0]}</i>
                         <span>${hh}</span><i>${opts.interval[1]}</i>
                         <span>${mm}</span><i>${opts.interval[2]}</i>
                         <span>${ss}</span><i>${opts.interval[3]}</i></p>
@@ -70,7 +70,58 @@ function ($) {
                 }
             }, 1000);
         },
+        // 购物车数量按钮组件
+        // $.shopNumsBtn({
+        //     max: 999,                     //数量最大值
+        //     maxlength: 3,                 //数量最大值的位数，如最大值为999，maxlength为3
+        //     min: 0,                       //数量最小值
+        //     disinput: true,               //能否手动输入数量值
+        //     classname: 'shopnums-box',    //插入位置类名
+        //     defaultnum: 1,                //默认数量
+        //     mintoast: '数量不能再少了',     //数量最小时的提示文案
+        //     maxtoast: '数量不能再多了',     //数量最大时的提示文案
+        // })
+        shopNumsBtn: function (options) {
+            var defaults = {
+                max: 999,
+                maxlength: 3,
+                min: 1,
+                disinput: true,
+                classname: '.shopnums-box',
+                defaultnum: 1,
+                mintoast: '数量不能再少了',
+                maxtoast: '数量不能再多了',
+            }
+            var opts = $.extend({}, defaults, options || {}),
+                msgStr = '';
+            msgStr = `<div class="shopnums-btn">
+                        <button class="shopbtn-sub">-</button>
+                        <input type="number" value="${opts.defaultnum}" maxlength="${opts.maxlength}" ${opts.disinput?'':'disabled'}
+                            oninput="if(value.length>${opts.maxlength})value=value.slice(0,${opts.maxlength})">
+                        <button class="shopbtn-add">+</button>
+                    </div>`;
+            $(opts.classname).append(msgStr);
 
+            $(document).on("click", ".shopbtn-sub", function () {
+                let num = $(".shopnums-btn input").val();
+                if (num > opts.min) {
+                    $(".shopnums-btn input").val(--num);
+                } else {
+                    $.toastShow({
+                        text: opts.mintoast
+                    })
+                }
+            }).on("click", ".shopbtn-add", function () {
+                let num = $(".shopnums-btn input").val();
+                if (num < opts.max) {
+                    $(".shopnums-btn input").val(++num);
+                } else {
+                    $.toastShow({
+                        text: opts.maxtoast
+                    })
+                }
+            })
+        },
         // 气泡弹层组件
         // $.popShow({
         //     title: '请拨打电话领取',        //弹层标题
@@ -78,7 +129,7 @@ function ($) {
         //     width: 400,                   //气泡宽度，默认400
         // })
         popShow: function (options) {
-            var tipsShow = $(".error-alert");
+            var tipsShow = $(".popShow-mask");
             if (tipsShow && tipsShow.length > 0) { // 已存在
                 return;
             }
@@ -98,6 +149,9 @@ function ($) {
                     </div>`;
             $('body').append(msgStr);
             $(".popShow-box").css("width", `${opts.width}px`)
+            if (opts.text == '') {
+                $(".popShow-box").find("h4").css("margin-bottom", '0px')
+            }
             $(document).on("click", ".popShow-box i", function () {
                 $(".popShow-mask").hide()
             })
@@ -116,7 +170,7 @@ function ($) {
             }
             $.overHidden();
             var defaults = {
-                text: '',
+                text: '请输入正确手机号',
                 hidetime: 3000,
                 type: ''
             }
@@ -139,7 +193,7 @@ function ($) {
             }, opts.hidetime);
         },
 
-        // 表单提交组件
+        // 表单提交提示组件
         // $.formTipsShow({
         //     title:'提交成功',             //提示标题
         //     text:'稍后联系客服',           //其他提示文字
@@ -151,7 +205,7 @@ function ($) {
         //     width: 400,                 //弹层宽度，默认300
         // })
         formTipsShow: function (options) {
-            var tipsShow = $(".error-alert");
+            var tipsShow = $(".popShow-mask");
             if (tipsShow && tipsShow.length > 0) { // 已存在
                 return;
             }
@@ -162,7 +216,7 @@ function ($) {
                 icon: 'success',
                 autoclose: false,
                 hidetime: 3000,
-                text: '稍后联系客服稍后联系客服稍后联系客服稍后联系客服',
+                text: '稍后可以联系客服咨询详情，联系电话400-806-1766转6001',
                 reload: false,
                 width: 300
             }
@@ -181,6 +235,8 @@ function ($) {
             $(".popShow-box").css("width", `${opts.width}px`);
             if (opts.hasicon) {
                 opts.icon == 'success' ? $(".popShow-box .success").show().next().hide() : $(".popShow-box .success").hide().next().show();
+            } else {
+                $(".popShow-box .c-icon").hide()
             }
             if (opts.autoclose) {
                 $(".popShow-box .close").hide();
