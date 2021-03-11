@@ -473,17 +473,20 @@ td {
 .shopnums-radio .radio-box {
   display: inline-block;
   font-size: 0;
-  margin-right: 12px;
+  margin: 0px 12px 0px 0px !important;
+  font-weight: 400 !important;
 }
 .shopnums-radio .radio-box input {
   -webkit-box-shadow: none;
   display: inline-block;
   vertical-align: middle;
+  margin: 0 !important;
 }
 .shopnums-radio .radio-box span {
   vertical-align: middle;
   font-size: 14px;
   color: #222;
+  margin: 0 0 0 2px !important;
 }
 /*
 * 增值服务底部样式
