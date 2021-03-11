@@ -121,6 +121,31 @@ function ($) {
                     })
                 }
             })
+            // 获取数量值：$(".shopnums-btn input").val()
+        },
+        // 单选按钮组件
+        // $.radiosBtn({
+        //     num: 10,                             //单选项数量
+        //     valueArr: [1,2,3,4,5,6,7,8,9,10],    //选项值，数组格式
+        //     defaultkey: 0,                       //默认选中第几项
+        //     classname: '.shopnums-box',           //插入位置类名
+        // })
+        radiosBtn: function (options) {
+            var defaults = {
+                num: 10, 
+                valueArr: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 
+                defaultkey: 0, 
+                classname: '.shopnums-box',
+            }
+            var opts = $.extend({}, defaults, options || {}),
+                msgStr = '';
+            msgStr = `<div class="shopnums-radio"></div>`;
+            $(opts.classname).append(msgStr);
+            for(let i = 0; i<opts.num; i++) {
+                let _label = `<label class="radio-box"><input type="radio" name="shopnums" ${opts.defaultkey == i ? 'checked' : ''}><span>${opts.valueArr[i]}</span></label>`
+                $(".shopnums-radio").append(_label)
+            }
+            // 获取选中值：$(".shopnums-radio").find("input[name='shopnums']:checked").next().text()
         },
         // 气泡弹层组件
         // $.popShow({

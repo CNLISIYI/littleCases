@@ -519,12 +519,13 @@ td {
         display: inline-block;
         vertical-align: middle;
         width: 20px;
-        height: 20px;
+        height: 100%;
         background: #F6F6F6;
         font-size: 14px;
         color: #222222;
         line-height: 20px;
         border: 1px solid #DCDADA;
+        box-sizing: border-box;
     }
     button:first-child {
         font-size: 20px;
@@ -542,11 +543,30 @@ td {
         background-color: #fff;
         border-top: 1px solid #DCDADA;
         border-bottom: 1px solid #DCDADA;
+        box-sizing: border-box;
         font-size: 14px;
         color: #666666;
     }
 }
-
+.shopnums-radio {
+    margin-right: -12px;
+    .radio-box {
+        display: inline-block;
+        font-size: 0;
+        margin-right: 12px;
+        input {
+            -webkit-box-shadow: none;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        span {
+            vertical-align: middle;
+            font-size: 14px;
+            color: #222;
+        }
+    }
+    
+}
 /*
 * 增值服务底部样式
 */ 
