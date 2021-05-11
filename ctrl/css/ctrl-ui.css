@@ -317,9 +317,8 @@ td {
 }
 @font-face {
   font-family: 'iconfont';
-  /* project id 2393019 */
-  src: url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.eot');
-  src: url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.eot?#iefix') format('embedded-opentype'), url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff2') format('woff2'), url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.woff') format('woff'), url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.ttf') format('truetype'), url('//at.alicdn.com/t/font_2393019_g4nwcvxlecc.svg#iconfont') format('svg');
+  /* Project id 2393019 */
+  src: url('//at.alicdn.com/t/font_2393019_w7n5cv5nxo.woff2?t=1620728265909') format('woff2'), url('//at.alicdn.com/t/font_2393019_w7n5cv5nxo.woff?t=1620728265909') format('woff'), url('//at.alicdn.com/t/font_2393019_w7n5cv5nxo.ttf?t=1620728265909') format('truetype');
 }
 /*
 * 组件样式
